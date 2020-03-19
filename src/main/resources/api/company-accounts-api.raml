@@ -1,0 +1,37 @@
+#%RAML 1.0
+baseUri: https://anypoint.mulesoft.com/mocking/api/v1/links/38d59a80-09f2-40a3-96be-d82186612f81/ # 
+title: Company Accounts API
+
+types:
+  CompanyAccount: !include /CompanyAccountsDataType.raml
+
+/accounts:
+  get:
+    queryParameters:
+      status:
+        required: false
+        enum:
+          - Active
+          - Deactive
+    
+    responses:
+      200:
+        body:
+          application/json:
+            type: CompanyAccount[]
+            examples:
+              output: !include /CompanyAccountsExample.raml
+
+  post:
+    body:
+      application/json:
+        type: CompanyAccount
+        examples:
+          !include CompanyAccount.raml
+
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: Account added successfully.
